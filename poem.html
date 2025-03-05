@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>秋天乐了诗词网</title>
+    <style>
+        body {
+            font-family: "宋体", serif; /* 宋体为主要字体 */
+            background: linear-gradient(to bottom, #F5E8C7, #D9C2A7); /* 古风米黄渐变背景 */
+            margin: 0;
+            padding: 15px;
+            font-size: 14px;
+            color: #4A2F1A; /* 深棕文字 */
+        }
+        .container {
+            max-width: 360px;
+            margin: 0 auto;
+            background: #FFF8E1; /* 米白内容区 */
+            border: 3px solid #8B5A2B; /* 木棕边框 */
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 6px 6px 20px rgba(0, 0, 0, 0.4), inset 2px 2px 6px rgba(255, 255, 255, 0.6); /* 深阴影+内高光 */
+        }
+        h1 {
+            font-family: "STXingkai", "华文行楷", cursive; /* 毛笔字字体 */
+            font-size: 24px;
+            text-align: center;
+            background: linear-gradient(to bottom, #8B5A2B, #6B4226); /* 棕色渐变 */
+            padding: 10px;
+            border-radius: 6px;
+            margin: 0 0 20px 0;
+            color: #FFF8E1; /* 米白标题文字 */
+            box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.3);
+            text-shadow: 2px 2px 4px #4A2F1A;
+        }
+        .section {
+            margin-bottom: 20px;
+            padding: 12px;
+            background: linear-gradient(to bottom, #FDF6E3, #F9E8C9); /* 浅黄渐变 */
+            border: 2px solid #A67B5B; /* 淡棕边框 */
+            border-radius: 8px;
+            box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.3), inset 1px 1px 4px rgba(255, 255, 255, 0.5);
+        }
+        .section h2 {
+            font-size: 16px;
+            margin: 0 0 8px 0;
+            color: #4A2F1A;
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
+        }
+        a {
+            color: #A0522D; /* 古红链接 */
+            text-decoration: none;
+            text-shadow: 0 1px 1px rgba(255, 255, 255, 0.5);
+        }
+        a:hover {
+            color: #CD5C5C; /* 亮红高亮 */
+            text-decoration: underline;
+        }
+        input, button {
+            padding: 6px;
+            border: 2px solid #8B5A2B;
+            border-radius: 5px;
+            background: linear-gradient(to bottom, #FDF6E3, #F9E8C9);
+            box-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.2), 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        button {
+            background: linear-gradient(to bottom, #A67B5B, #8B5A2B);
+            color: #FFF8E1;
+            border: 2px solid #6B4226;
+            box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3), inset 1px 1px 2px rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+        }
+        .info-box {
+            font-size: 12px;
+            color: #6B4226;
+            text-align: center;
+            margin-top: 8px;
+            text-shadow: 0 1px 1px rgba(255, 255, 255, 0.7);
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            margin: 6px 0;
+        }
+        .poem-list li {
+            background: rgba(255, 248, 225, 0.8);
+            padding: 5px;
+            border-radius: 4px;
+            box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>秋天乐了</h1>
+
+        <!-- 用户登录注册 -->
+        <div class="section">
+            <h2>用户中心</h2>
+            <p>用户名：<input type="text" id="username" placeholder="输入用户名"></p>
+            <p>密码：<input type="password" id="password" placeholder="输入密码"></p>
+            <button id="login-btn" onclick="login()">登录</button>
+            <button id="register-btn" onclick="register()">注册</button>
+            <p id="user-level">用户等级：未登录</p>
+        </div>
+
+        <!-- 在线对联 -->
+        <div class="section">
+            <h2>在线对联</h2>
+            <p>输入上联：<input type="text" id="upper-couplet" placeholder="如：秋风送爽"></p>
+            <button onclick="generateCouplet()">生成下联</button>
+            <p id="lower-couplet">下联：待生成</p>
+        </div>
+
+        <!-- 吟诗 -->
+        <div class="section">
+            <h2>吟诗</h2>
+            <p>输入诗句：<input type="text" id="poem-input" placeholder="如：秋叶飘零"></p>
+            <button onclick="generatePoem()">生成诗词</button>
+            <p id="poem-result">诗词：待生成</p>
+        </div>
+
+        <!-- 飞花令 -->
+        <div class="section">
+            <h2>飞花令</h2>
+            <p>输入主题：<input type="text" id="feihualing-input" placeholder="如：秋"></p>
+            <button onclick="generateFeihualing()">开始飞花</button>
+            <p id="feihualing-result">结果：待生成</p>
+        </div>
+
+        <!-- 前十热诗词榜 -->
+        <div class="section">
+            <h2>前十热诗词榜</h2>
+            <ul class="poem-list">
+                <li>1. 秋风起兮白云飞 - 刘彻</li>
+                <li>2. 落叶满空山 - 王维</li>
+                <li>3. 秋色连波 - 李白</li>
+                <li>4. 菊花秋风里 - 杜甫</li>
+                <li>5. 秋月扬明辉 - 张九龄</li>
+                <li>6. 枫叶荻花秋瑟瑟 - 白居易</li>
+                <li>7. 秋风吹不尽 - 岑参</li>
+                <li>8. 秋夜曲 - 王建</li>
+                <li>9. 西风吹老洞庭波 - 柳宗元</li>
+                <li>10. 秋雨一何碧 - 苏轼</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 简单脚本 -->
+    <script>
+        function login() {
+            const username = document.getElementById("username").value;
+            if (username) {
+                localStorage.setItem("username", username);
+                localStorage.setItem("level", "初级诗友");
+                document.getElementById("user-level").innerHTML = "用户等级：初级诗友";
+            }
+        }
+
+        function register() {
+            const username = document.getElementById("username").value;
+            if (username) {
+                localStorage.setItem("username", username);
+                localStorage.setItem("level", "新手诗客");
+                document.getElementById("user-level").innerHTML = "用户等级：新手诗客";
+            }
+        }
+
+        function generateCouplet() {
+    const upper = document.getElementById("upper-couplet").value;
+    document.getElementById(“user-level”). innerHTML=“用户等级：”+level；
+        }
+
+    函数generatePoem（）{
+    const input = document.getElementById("poem-input").value;
+    document.getElementById(“poem-result”). innerHTML="诗词："+（input？input+"，youthemyokovie"：“诗词”）；
+        }
+
+    函数 generatePoem（）{
+    const input = document.getElementById("poem-input").value;
+    document.getElementById(“poem-result”). innerHTML="诗词："+（input？input+"，youthemyokovie"：“诗词”）；
+        }
+
+    函数 generateFeihualing（）{
+    const theme = document.getElementById("feihualing-input").value;
+    document.getElementById([feihualing-result])。innerHTML=“结果：”+theme？theme+“youmayokowyou mayoto youshyou”：""
+    // 初始化用户等级
+    document.getElementById（“lower-gou”）. innerHTML="下联："+（upper？"“youmblemayou”："
+            }
+        };
+    </script>
+</body>
+</html>
